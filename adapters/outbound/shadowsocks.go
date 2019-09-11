@@ -63,6 +63,7 @@ func (ss *ShadowSocks) Dial(metadata *C.Metadata) (C.Conn, error) {
 		return nil, fmt.Errorf("%s connect error: %s", ss.server, err.Error())
 	}
 	tcpKeepAlive(c)
+
 	switch ss.obfsMode {
 	case "tls":
 		c = obfs.NewTLSObfs(c, ss.obfsOption.Host)
@@ -78,6 +79,7 @@ func (ss *ShadowSocks) Dial(metadata *C.Metadata) (C.Conn, error) {
 	}
 	c = ss.cipher.StreamConn(c)
 	_, err = c.Write(serializesSocksAddr(metadata))
+
 	return newConn(c, ss), err
 }
 

@@ -19,6 +19,7 @@ const (
 	URLTest
 	Vmess
 	LoadBalance
+	ShadowsocksR
 )
 
 type ServerAdapter interface {
@@ -102,6 +103,8 @@ func (at AdapterType) String() string {
 		return "Vmess"
 	case LoadBalance:
 		return "LoadBalance"
+	case ShadowsocksR:
+		return "ShadowsocksR"
 	default:
 		return "Unknown"
 	}

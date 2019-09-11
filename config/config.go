@@ -256,6 +256,13 @@ func parseProxies(cfg *rawConfig) (map[string]C.Proxy, error) {
 				break
 			}
 			proxy, err = adapters.NewShadowSocks(*ssOption)
+		case "ssr":
+			ssrOption := &adapters.ShadowsocksROption{}
+			err = decoder.Decode(mapping, ssrOption)
+			if err != nil {
+				break
+			}
+			proxy, err = adapters.NewShadowsocksR(*ssrOption)
 		case "socks5":
 			socksOption := &adapters.Socks5Option{}
 			err = decoder.Decode(mapping, socksOption)
