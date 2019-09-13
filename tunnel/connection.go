@@ -115,7 +115,7 @@ func relay(leftConn, rightConn net.Conn) {
 	go func() {
 		buf := pool.BufPool.Get().([]byte)
 		_, err := io.CopyBuffer(leftConn, rightConn, buf)
-		pool.BufPool.Put(buf[:cap(buf)])
+		pool.BufPool.Put(buf)
 		leftConn.SetReadDeadline(time.Now())
 		ch <- err
 	}()

@@ -8,7 +8,7 @@ const (
 	// io.Copy default buffer size is 32 KiB
 	// but the maximum packet size of vmess/shadowsocks is about 16 KiB
 	// so define a buffer of 20 KiB to reduce the memory of each TCP relay
-	bufferSize = 20 * 1024
+	bufferSize = 32 * 1024
 )
 
 // BufPool provide buffer for relay
