@@ -119,3 +119,5 @@ func (ssr *ShadowsocksR) MarshalJSON() ([]byte, error) {
 func (ssr *ShadowsocksR) DialUDP(metadata *C.Metadata) (pac C.PacketConn, netaddr net.Addr, err error) {
 	return nil, nil, nil
 }
+
+
