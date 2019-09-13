@@ -3,7 +3,6 @@ package adapters
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"github.com/zu1k/gossr/obfs"
 	"github.com/zu1k/gossr/protocol"
 	"net"
@@ -39,16 +38,6 @@ type ShadowsocksROption struct {
 }
 
 func (ssrins *ShadowsocksR) Dial(metadata *C.Metadata) (C.Conn, error) {
-	//c, err := dialTimeout("tcp", ssr.server, tcpTimeout)
-	//if err != nil {
-	//	return nil, fmt.Errorf("%s connect error", ssr.server)
-	//}
-	//tcpKeepAlive(c)
-	////TODO
-	//
-
-	//return newConn(c, ssr), nil
-
 	ssrop := ssrins.ssrop
 	cipher, err := shadowsocksr.NewStreamCipher(ssrop.Cipher, ssrop.Password)
 	if err != nil {
@@ -69,7 +58,6 @@ func (ssrins *ShadowsocksR) Dial(metadata *C.Metadata) (C.Conn, error) {
 		return nil, errors.New("nil connection")
 	}
 
-	// should initialize obfs/protocol now
 	rs := strings.Split(dstcon.RemoteAddr().String(), ":")
 	port, _ := strconv.Atoi(rs[1])
 
@@ -109,20 +97,6 @@ func (ssrins *ShadowsocksR) Dial(metadata *C.Metadata) (C.Conn, error) {
 }
 
 func NewShadowsocksR(ssrop ShadowsocksROption) (*ShadowsocksR, error) {
-	//fmt.Println("NewShadowsocksR")
-	//u := &url.URL{
-	//	Scheme: "ssr",
-	//	Host:   net.JoinHostPort(ssrop.Server, strconv.Itoa(ssrop.Port)),
-	//}
-	//v := u.Query()
-	//v.Set("encrypt-method", ssrop.Cipher)
-	//v.Set("encrypt-key", ssrop.Password)
-	//v.Set("obfs", ssrop.Obfs)
-	//v.Set("obfs-param", ssrop.ObfsParam)
-	//v.Set("protocol", ssrop.Protocol)
-	//v.Set("protocol-param", ssrop.ProtocolParam)
-	//u.RawQuery = v.Encode()
-	//fmt.Println(u.RawQuery)
 	server := net.JoinHostPort(ssrop.Server, strconv.Itoa(ssrop.Port))
 	return &ShadowsocksR{
 		Base: &Base{
@@ -137,7 +111,6 @@ func NewShadowsocksR(ssrop ShadowsocksROption) (*ShadowsocksR, error) {
 }
 
 func (ssr *ShadowsocksR) MarshalJSON() ([]byte, error) {
-	fmt.Println("MarshalJSON")
 	return json.Marshal(map[string]string{
 		"type": ssr.Type().String(),
 	})
