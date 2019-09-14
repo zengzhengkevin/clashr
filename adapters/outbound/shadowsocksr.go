@@ -5,6 +5,7 @@ import (
 	"errors"
 	"github.com/zu1k/gossr/obfs"
 	"github.com/zu1k/gossr/protocol"
+	"log"
 	"net"
 	"strconv"
 	"strings"
@@ -89,14 +90,15 @@ func (ssrins *ShadowsocksR) Dial(metadata *C.Metadata) (C.Conn, error) {
 	dstcon.IProtocol.SetData(ssrins.ProtocolData)
 
 	if _, err := dstcon.Write(serializesSocksAddr(metadata)); err != nil {
-		dstcon.Close()
+		_ = dstcon.Close()
 		return nil, err
 	}
-	return newConn(dstcon, ssrins), nil
+	return newConn(dstcon, ssrins), err
 
 }
 
 func NewShadowsocksR(ssrop ShadowsocksROption) (*ShadowsocksR, error) {
+	log.Println(ssrop.ObfsParam)
 	server := net.JoinHostPort(ssrop.Server, strconv.Itoa(ssrop.Port))
 	return &ShadowsocksR{
 		Base: &Base{
