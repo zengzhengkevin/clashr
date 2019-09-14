@@ -104,7 +104,11 @@ func authentication(next http.Handler) http.Handler {
 }
 
 func hello(w http.ResponseWriter, r *http.Request) {
-	render.JSON(w, r, render.M{"hello": "clash"})
+	render.JSON(w, r, render.M{
+		"Hello": "clashR",
+		"Group": "https://t.me/clashr4ssr",
+		"Channel": "https://t.me/peekfun",
+	})
 }
 
 func traffic(w http.ResponseWriter, r *http.Request) {

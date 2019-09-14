@@ -20,6 +20,7 @@ func (t *Tunnel) handleHTTP(request *adapters.HTTPAdapter, outbound net.Conn) {
 	inboundReeder := bufio.NewReader(request)
 	outboundReeder := bufio.NewReader(conn)
 
+
 	for {
 		keepAlive := strings.TrimSpace(strings.ToLower(req.Header.Get("Proxy-Connection"))) == "keep-alive"
 

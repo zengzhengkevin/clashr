@@ -19,12 +19,12 @@ require (
 	github.com/oschwald/maxminddb-golang v1.5.0 // indirect
 	github.com/sirupsen/logrus v1.4.2
 	github.com/stretchr/testify v1.4.0
-	github.com/zu1k/gossr v0.0.0-20190913054427-332ce61f2a0a
+	github.com/zu1k/gossr v0.0.0-20190914083146-a4cc7d0cfe77
 	gitlab.com/yawning/chacha20.git v0.0.0-20190903091407-6d1cb28dc72c // indirect
 	golang.org/x/crypto v0.0.0-20190911031432-227b76d455e7
 	golang.org/x/net v0.0.0-20190827160401-ba9fcec4b297
 	golang.org/x/sync v0.0.0-20190423024810-112230192c58
-	golang.org/x/sys v0.0.0-20190912141932-bc967efca4b8 // indirect
+	golang.org/x/sys v0.0.0-20190913121621-c3b328c6e5a7 // indirect
 	gopkg.in/eapache/channels.v1 v1.1.0
 	gopkg.in/yaml.v2 v2.2.2
 )
