@@ -104,6 +104,11 @@ func (t *Tunnel) needLookupIP(metadata *C.Metadata) bool {
 
 func (t *Tunnel) handleConn(localConn C.ServerAdapter) {
 	defer func() {
+		if err := recover(); err != nil {
+			fmt.Println("panic recover")
+		}
+	}()
+	defer func() {
 		var conn net.Conn
 		switch adapter := localConn.(type) {
 		case *InboundAdapter.HTTPAdapter:
