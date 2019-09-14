@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	C "github.com/Dreamacro/clash/constant"
+	C "github.com/zu1k/clashr/constant"
 
 	"github.com/zu1k/gossr"
 	"github.com/zu1k/gossr/ssr"

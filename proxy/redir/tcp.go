@@ -3,10 +3,10 @@ package redir
 import (
 	"net"
 
-	"github.com/Dreamacro/clash/adapters/inbound"
-	C "github.com/Dreamacro/clash/constant"
-	"github.com/Dreamacro/clash/log"
-	"github.com/Dreamacro/clash/tunnel"
+	"github.com/zu1k/clashr/adapters/inbound"
+	C "github.com/zu1k/clashr/constant"
+	"github.com/zu1k/clashr/log"
+	"github.com/zu1k/clashr/tunnel"
 )
 
 var (

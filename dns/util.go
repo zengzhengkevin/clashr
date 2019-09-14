@@ -6,8 +6,8 @@ import (
 	"errors"
 	"time"
 
-	"github.com/Dreamacro/clash/common/cache"
-	"github.com/Dreamacro/clash/log"
+	"github.com/zu1k/clashr/common/cache"
+	"github.com/zu1k/clashr/log"
 	yaml "gopkg.in/yaml.v2"
 
 	D "github.com/miekg/dns"

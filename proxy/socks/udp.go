@@ -3,11 +3,11 @@ package socks
 import (
 	"net"
 
-	adapters "github.com/Dreamacro/clash/adapters/inbound"
-	"github.com/Dreamacro/clash/common/pool"
-	"github.com/Dreamacro/clash/component/socks5"
-	C "github.com/Dreamacro/clash/constant"
-	"github.com/Dreamacro/clash/tunnel"
+	adapters "github.com/zu1k/clashr/adapters/inbound"
+	"github.com/zu1k/clashr/common/pool"
+	"github.com/zu1k/clashr/component/socks5"
+	C "github.com/zu1k/clashr/constant"
+	"github.com/zu1k/clashr/tunnel"
 )
 
 var (

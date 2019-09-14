@@ -5,8 +5,8 @@ import (
 	"net"
 	"strings"
 
-	"github.com/Dreamacro/clash/component/fakeip"
-	"github.com/Dreamacro/clash/log"
+	"github.com/zu1k/clashr/component/fakeip"
+	"github.com/zu1k/clashr/log"
 
 	D "github.com/miekg/dns"
 )

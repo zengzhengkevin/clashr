@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/Dreamacro/clash/component/socks5"
-	C "github.com/Dreamacro/clash/constant"
+	"github.com/zu1k/clashr/component/socks5"
+	C "github.com/zu1k/clashr/constant"
 )
 
 func parseSocksAddr(target socks5.Addr) *C.Metadata {

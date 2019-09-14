@@ -6,10 +6,10 @@ import (
 	"sync"
 	"time"
 
-	InboundAdapter "github.com/Dreamacro/clash/adapters/inbound"
-	C "github.com/Dreamacro/clash/constant"
-	"github.com/Dreamacro/clash/dns"
-	"github.com/Dreamacro/clash/log"
+	InboundAdapter "github.com/zu1k/clashr/adapters/inbound"
+	C "github.com/zu1k/clashr/constant"
+	"github.com/zu1k/clashr/dns"
+	"github.com/zu1k/clashr/log"
 
 	channels "gopkg.in/eapache/channels.v1"
 )

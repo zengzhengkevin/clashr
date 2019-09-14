@@ -8,10 +8,10 @@ import (
 	"strconv"
 	"time"
 
-	A "github.com/Dreamacro/clash/adapters/outbound"
-	"github.com/Dreamacro/clash/common/picker"
-	C "github.com/Dreamacro/clash/constant"
-	T "github.com/Dreamacro/clash/tunnel"
+	A "github.com/zu1k/clashr/adapters/outbound"
+	"github.com/zu1k/clashr/common/picker"
+	C "github.com/zu1k/clashr/constant"
+	T "github.com/zu1k/clashr/tunnel"
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/render"

@@ -4,7 +4,7 @@ import (
 	"sync"
 	"time"
 
-	nat "github.com/Dreamacro/clash/component/nat-table"
+	nat "github.com/zu1k/clashr/component/nat-table"
 )
 
 var (

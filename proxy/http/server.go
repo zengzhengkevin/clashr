@@ -8,12 +8,12 @@ import (
 	"strings"
 	"time"
 
-	adapters "github.com/Dreamacro/clash/adapters/inbound"
-	"github.com/Dreamacro/clash/common/cache"
-	"github.com/Dreamacro/clash/component/auth"
-	"github.com/Dreamacro/clash/log"
-	authStore "github.com/Dreamacro/clash/proxy/auth"
-	"github.com/Dreamacro/clash/tunnel"
+	adapters "github.com/zu1k/clashr/adapters/inbound"
+	"github.com/zu1k/clashr/common/cache"
+	"github.com/zu1k/clashr/component/auth"
+	"github.com/zu1k/clashr/log"
+	authStore "github.com/zu1k/clashr/proxy/auth"
+	"github.com/zu1k/clashr/tunnel"
 )
 
 var (

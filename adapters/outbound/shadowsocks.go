@@ -7,12 +7,12 @@ import (
 	"net"
 	"strconv"
 
-	"github.com/Dreamacro/clash/common/pool"
-	"github.com/Dreamacro/clash/common/structure"
-	obfs "github.com/Dreamacro/clash/component/simple-obfs"
-	"github.com/Dreamacro/clash/component/socks5"
-	v2rayObfs "github.com/Dreamacro/clash/component/v2ray-plugin"
-	C "github.com/Dreamacro/clash/constant"
+	"github.com/zu1k/clashr/common/pool"
+	"github.com/zu1k/clashr/common/structure"
+	obfs "github.com/zu1k/clashr/component/simple-obfs"
+	"github.com/zu1k/clashr/component/socks5"
+	v2rayObfs "github.com/zu1k/clashr/component/v2ray-plugin"
+	C "github.com/zu1k/clashr/constant"
 
 	"github.com/Dreamacro/go-shadowsocks2/core"
 )

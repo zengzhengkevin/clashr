@@ -8,8 +8,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/Dreamacro/clash/common/queue"
-	C "github.com/Dreamacro/clash/constant"
+	"github.com/zu1k/clashr/common/queue"
+	C "github.com/zu1k/clashr/constant"
 )
 
 var (
@@ -192,4 +192,11 @@ func (p *Proxy) URLTest(ctx context.Context, url string) (t uint16, err error) {
 
 func NewProxy(adapter C.ProxyAdapter) *Proxy {
 	return &Proxy{adapter, queue.New(10), true}
+}
+
+
+// ProxyGroupOption contain the common options for all kind of ProxyGroup
+type ProxyGroupOption struct {
+	Name    string   `proxy:"name"`
+	Proxies []string `proxy:"proxies"`
 }

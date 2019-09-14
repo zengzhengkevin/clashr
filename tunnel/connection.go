@@ -8,8 +8,8 @@ import (
 	"strings"
 	"time"
 
-	adapters "github.com/Dreamacro/clash/adapters/inbound"
-	"github.com/Dreamacro/clash/common/pool"
+	adapters "github.com/zu1k/clashr/adapters/inbound"
+	"github.com/zu1k/clashr/common/pool"
 )
 
 func (t *Tunnel) handleHTTP(request *adapters.HTTPAdapter, outbound net.Conn) {
@@ -37,7 +37,16 @@ func (t *Tunnel) handleHTTP(request *adapters.HTTPAdapter, outbound net.Conn) {
 			break
 		}
 		adapters.RemoveHopByHopHeaders(resp.Header)
-		if resp.ContentLength >= 0 {
+
+		if resp.StatusCode == http.StatusContinue {
+			err = resp.Write(request)
+			if err != nil {
+				break
+			}
+			goto handleResponse
+		}
+
+		if keepAlive || resp.ContentLength >= 0 {
 			resp.Header.Set("Proxy-Connection", "keep-alive")
 			resp.Header.Set("Connection", "keep-alive")
 			resp.Header.Set("Keep-Alive", "timeout=4")
@@ -50,13 +59,6 @@ func (t *Tunnel) handleHTTP(request *adapters.HTTPAdapter, outbound net.Conn) {
 			break
 		}
 
-		if !keepAlive {
-			break
-		}
-
-		if resp.StatusCode == http.StatusContinue {
-			goto handleResponse
-		}
 
 		req, err = http.ReadRequest(inboundReeder)
 		if err != nil {

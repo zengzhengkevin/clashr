@@ -4,10 +4,10 @@ import (
 	"net/http"
 	"path/filepath"
 
-	"github.com/Dreamacro/clash/hub/executor"
-	"github.com/Dreamacro/clash/log"
-	P "github.com/Dreamacro/clash/proxy"
-	T "github.com/Dreamacro/clash/tunnel"
+	"github.com/zu1k/clashr/hub/executor"
+	"github.com/zu1k/clashr/log"
+	P "github.com/zu1k/clashr/proxy"
+	T "github.com/zu1k/clashr/tunnel"
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/render"

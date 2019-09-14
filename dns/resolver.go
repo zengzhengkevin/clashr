@@ -9,11 +9,11 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Dreamacro/clash/common/cache"
-	"github.com/Dreamacro/clash/common/picker"
-	trie "github.com/Dreamacro/clash/component/domain-trie"
-	"github.com/Dreamacro/clash/component/fakeip"
-	C "github.com/Dreamacro/clash/constant"
+	"github.com/zu1k/clashr/common/cache"
+	"github.com/zu1k/clashr/common/picker"
+	trie "github.com/zu1k/clashr/component/domain-trie"
+	"github.com/zu1k/clashr/component/fakeip"
+	C "github.com/zu1k/clashr/constant"
 
 	D "github.com/miekg/dns"
 	geoip2 "github.com/oschwald/geoip2-golang"

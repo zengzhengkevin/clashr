@@ -9,16 +9,16 @@ import (
 	"path/filepath"
 	"strings"
 
-	adapters "github.com/Dreamacro/clash/adapters/outbound"
-	"github.com/Dreamacro/clash/common/structure"
-	"github.com/Dreamacro/clash/component/auth"
-	trie "github.com/Dreamacro/clash/component/domain-trie"
-	"github.com/Dreamacro/clash/component/fakeip"
-	C "github.com/Dreamacro/clash/constant"
-	"github.com/Dreamacro/clash/dns"
-	"github.com/Dreamacro/clash/log"
-	R "github.com/Dreamacro/clash/rules"
-	T "github.com/Dreamacro/clash/tunnel"
+	adapters "github.com/zu1k/clashr/adapters/outbound"
+	"github.com/zu1k/clashr/common/structure"
+	"github.com/zu1k/clashr/component/auth"
+	trie "github.com/zu1k/clashr/component/domain-trie"
+	"github.com/zu1k/clashr/component/fakeip"
+	C "github.com/zu1k/clashr/constant"
+	"github.com/zu1k/clashr/dns"
+	"github.com/zu1k/clashr/log"
+	R "github.com/zu1k/clashr/rules"
+	T "github.com/zu1k/clashr/tunnel"
 
 	yaml "gopkg.in/yaml.v2"
 )
@@ -309,7 +309,7 @@ func parseProxies(cfg *rawConfig) (map[string]C.Proxy, error) {
 	}
 
 	// check if any loop exists and sort the ProxyGroups
-	if err := proxyGroupsDagSort(groupsConfig); err != nil {
+	if err := proxyGroupsDagSort(groupsConfig, decoder); err != nil {
 		return nil, err
 	}
 

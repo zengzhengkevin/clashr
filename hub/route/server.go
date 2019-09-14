@@ -7,8 +7,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Dreamacro/clash/log"
-	T "github.com/Dreamacro/clash/tunnel"
+	C "github.com/zu1k/clashr/constant"
+	"github.com/zu1k/clashr/log"
+	T "github.com/zu1k/clashr/tunnel"
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/cors"
@@ -56,6 +57,7 @@ func Start(addr string, secret string) {
 		r.Use(cors.Handler, authentication)
 
 		r.Get("/logs", getLogs)
+		r.Get("/version", version)
 		r.Get("/traffic", traffic)
 		r.Mount("/configs", configRouter())
 		r.Mount("/proxies", proxyRouter())
@@ -208,4 +210,8 @@ func getLogs(w http.ResponseWriter, r *http.Request) {
 			break
 		}
 	}
+}
+
+func version(w http.ResponseWriter, r *http.Request) {
+	render.JSON(w, r, render.M{"version": C.Version})
 }

@@ -1,14 +1,14 @@
 package executor
 
 import (
-	"github.com/Dreamacro/clash/component/auth"
-	"github.com/Dreamacro/clash/config"
-	C "github.com/Dreamacro/clash/constant"
-	"github.com/Dreamacro/clash/dns"
-	"github.com/Dreamacro/clash/log"
-	P "github.com/Dreamacro/clash/proxy"
-	authStore "github.com/Dreamacro/clash/proxy/auth"
-	T "github.com/Dreamacro/clash/tunnel"
+	"github.com/zu1k/clashr/component/auth"
+	"github.com/zu1k/clashr/config"
+	C "github.com/zu1k/clashr/constant"
+	"github.com/zu1k/clashr/dns"
+	"github.com/zu1k/clashr/log"
+	P "github.com/zu1k/clashr/proxy"
+	authStore "github.com/zu1k/clashr/proxy/auth"
+	T "github.com/zu1k/clashr/tunnel"
 )
 
 // Parse config with default config path

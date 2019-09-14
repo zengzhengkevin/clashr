@@ -5,12 +5,12 @@ import (
 	"io/ioutil"
 	"net"
 
-	adapters "github.com/Dreamacro/clash/adapters/inbound"
-	"github.com/Dreamacro/clash/component/socks5"
-	C "github.com/Dreamacro/clash/constant"
-	"github.com/Dreamacro/clash/log"
-	authStore "github.com/Dreamacro/clash/proxy/auth"
-	"github.com/Dreamacro/clash/tunnel"
+	adapters "github.com/zu1k/clashr/adapters/inbound"
+	"github.com/zu1k/clashr/component/socks5"
+	C "github.com/zu1k/clashr/constant"
+	"github.com/zu1k/clashr/log"
+	authStore "github.com/zu1k/clashr/proxy/auth"
+	"github.com/zu1k/clashr/tunnel"
 )
 
 var (
