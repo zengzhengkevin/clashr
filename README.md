@@ -1,20 +1,20 @@
 <h1 align="center">
-  <img src="https://github.com/zu1k/clashr/raw/master/docs/logo.png" alt="Clash" width="200">
+  <img src="https://github.com/Dreamacro/clash/raw/master/docs/logo.png" alt="Clash" width="200">
   <br>Clash<br>
 </h1>
 
 <h4 align="center">A rule-based tunnel in Go.</h4>
 
 <p align="center">
-  <a href="https://travis-ci.org/zu1k/clashr">
-    <img src="https://img.shields.io/travis/zu1k/clashr.svg?style=flat-square"
+  <a href="https://travis-ci.org/Dreamacro/clash">
+    <img src="https://img.shields.io/travis/Dreamacro/clash.svg?style=flat-square"
          alt="Travis-CI">
   </a>
-  <a href="https://goreportcard.com/report/github.com/zu1k/clashr">
-    <img src="https://goreportcard.com/badge/github.com/zu1k/clashr?style=flat-square">
+  <a href="https://goreportcard.com/report/github.com/Dreamacro/clash">
+    <img src="https://goreportcard.com/badge/github.com/Dreamacro/clash?style=flat-square">
   </a>
-  <a href="https://github.com/zu1k/clashr/releases">
-    <img src="https://img.shields.io/github/release/zu1k/clashr/all.svg?style=flat-square">
+  <a href="https://github.com/Dreamacro/clash/releases">
+    <img src="https://img.shields.io/github/release/Dreamacro/clash/all.svg?style=flat-square">
   </a>
 </p>
 
@@ -31,10 +31,10 @@
 You can build from source:
 
 ```sh
-go get -u -v github.com/zu1k/clashr
+go get -u -v github.com/Dreamacro/clash
 ```
 
-Pre-built binaries are available: [release](https://github.com/zu1k/clashr/releases)
+Pre-built binaries are available: [release](https://github.com/Dreamacro/clash/releases)
 
 Requires Go >= 1.13.
 
@@ -58,7 +58,7 @@ pm2 start clash
 
 If you have Docker installed, you can run clash directly using `docker-compose`.
 
-[Run clash in docker](https://github.com/zu1k/clashr/wiki/Run-clash-in-docker)
+[Run clash in docker](https://github.com/Dreamacro/clash/wiki/Run-clash-in-docker)
 
 ## Config
 
@@ -120,18 +120,18 @@ experimental:
 #  - "user1:pass1"
 #  - "user2:pass2"
 
+# # experimental hosts, support wildcard (e.g. *.clash.dev Even *.foo.*.example.com)
+# # static domain has a higher priority than wildcard domain (foo.example.com > *.example.com)
+# hosts:
+#   '*.clash.dev': 127.0.0.1
+#   'alpha.clash.dev': '::1'
+
 # dns:
   # enable: true # set true to enable dns (default is false)
   # ipv6: false # default is false
   # listen: 0.0.0.0:53
   # enhanced-mode: redir-host # or fake-ip
   # # fake-ip-range: 198.18.0.1/16 # if you don't know what it is, don't change it
-  # # experimental hosts, support wildcard (e.g. *.clash.dev Even *.foo.*.example.com)
-  # # static domain has a higher priority than wildcard domain (foo.example.com > *.example.com)
-  # # NOTE: hosts don't work with `fake-ip`
-  # hosts:
-  #   '*.clash.dev': 127.0.0.1
-  #   'alpha.clash.dev': '::1'
   # nameserver:
   #   - 114.114.114.114
   #   - tls://dns.rubyfish.cn:853 # dns over tls
