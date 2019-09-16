@@ -23,4 +23,4 @@ type ipnetFilter struct {
 
 func (inf *ipnetFilter) Match(ip net.IP) bool {
 	return inf.ipnet.Contains(ip)
-}s
+}
