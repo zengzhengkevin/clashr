@@ -45,7 +45,7 @@ func NewRedirProxy(addr string) (*RedirListener, error) {
 
 func (l *RedirListener) Close() {
 	l.closed = true
-	l.Listener.Close()
+	_ = l.Listener.Close()
 }
 
 func (l *RedirListener) Address() string {
@@ -55,9 +55,9 @@ func (l *RedirListener) Address() string {
 func handleRedir(conn net.Conn) {
 	target, err := parserPacket(conn)
 	if err != nil {
-		conn.Close()
+		_ = conn.Close()
 		return
 	}
-	conn.(*net.TCPConn).SetKeepAlive(true)
+	_ = conn.(*net.TCPConn).SetKeepAlive(true)
 	tun.Add(adapters.NewSocket(target, conn, C.REDIR, C.TCP))
 }

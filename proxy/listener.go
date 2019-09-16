@@ -100,7 +100,7 @@ func reCreateSocksUDP(addr string) error {
 		if socksUDPListener.Address() == addr {
 			return nil
 		}
-		socksUDPListener.Close()
+		_ = socksUDPListener.Close()
 		socksUDPListener = nil
 	}
 

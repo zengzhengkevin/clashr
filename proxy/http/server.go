@@ -54,7 +54,7 @@ func NewHttpProxy(addr string) (*HttpListener, error) {
 
 func (l *HttpListener) Close() {
 	l.closed = true
-	l.Listener.Close()
+	_ = l.Listener.Close()
 }
 
 func (l *HttpListener) Address() string {
@@ -77,7 +77,7 @@ func handleConn(conn net.Conn, cache *cache.Cache) {
 	br := bufio.NewReader(conn)
 	request, err := http.ReadRequest(br)
 	if err != nil || request.URL.Host == "" {
-		conn.Close()
+		_ = conn.Close()
 		return
 	}
 
@@ -85,12 +85,12 @@ func handleConn(conn net.Conn, cache *cache.Cache) {
 	if authenticator != nil {
 		if authStrings := strings.Split(request.Header.Get("Proxy-Authorization"), " "); len(authStrings) != 2 {
 			_, err = conn.Write([]byte("HTTP/1.1 407 Proxy Authentication Required\r\nProxy-Authenticate: Basic\r\n\r\n"))
-			conn.Close()
+			_ = conn.Close()
 			return
 		} else if !canActivate(authStrings[1], authenticator, cache) {
-			conn.Write([]byte("HTTP/1.1 403 Forbidden\r\n\r\n"))
+			_, _ = conn.Write([]byte("HTTP/1.1 403 Forbidden\r\n\r\n"))
 			log.Infoln("Auth failed from %s", conn.RemoteAddr().String())
-			conn.Close()
+			_ = conn.Close()
 			return
 		}
 	}

@@ -28,6 +28,13 @@ func init() {
 }
 
 func main() {
+	defer func() {
+		if err := recover(); err != nil {
+			fmt.Println("panic recover")
+			go main()
+		}
+	}()
+
 	if version {
 		fmt.Printf("Clash %s %s %s %s\n", C.Version, runtime.GOOS, runtime.GOARCH, C.BuildTime)
 		return

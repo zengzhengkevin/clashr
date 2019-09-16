@@ -2,6 +2,7 @@ package tunnel
 
 import (
 	"bufio"
+	"fmt"
 	"io"
 	"net"
 	"net/http"
@@ -13,6 +14,11 @@ import (
 )
 
 func (t *Tunnel) handleHTTP(request *adapters.HTTPAdapter, outbound net.Conn) {
+	defer func() {
+		if err := recover(); err != nil {
+			fmt.Println("panic recover")
+		}
+	}()
 	conn := newTrafficTrack(outbound, t.traffic)
 	req := request.R
 	host := req.Host
@@ -20,13 +26,13 @@ func (t *Tunnel) handleHTTP(request *adapters.HTTPAdapter, outbound net.Conn) {
 	inboundReeder := bufio.NewReader(request)
 	outboundReeder := bufio.NewReader(conn)
 
-
 	for {
 		keepAlive := strings.TrimSpace(strings.ToLower(req.Header.Get("Proxy-Connection"))) == "keep-alive"
 
 		req.Header.Set("Connection", "close")
 		req.RequestURI = ""
 		adapters.RemoveHopByHopHeaders(req.Header)
+
 		err := req.Write(conn)
 		if err != nil {
 			break
@@ -59,7 +65,6 @@ func (t *Tunnel) handleHTTP(request *adapters.HTTPAdapter, outbound net.Conn) {
 		if err != nil || resp.Close {
 			break
 		}
-
 
 		req, err = http.ReadRequest(inboundReeder)
 		if err != nil {
@@ -119,13 +124,13 @@ func relay(leftConn, rightConn net.Conn) {
 		buf := pool.BufPool.Get().([]byte)
 		_, err := io.CopyBuffer(leftConn, rightConn, buf)
 		pool.BufPool.Put(buf)
-		leftConn.SetReadDeadline(time.Now())
+		_ = leftConn.SetReadDeadline(time.Now())
 		ch <- err
 	}()
 
 	buf := pool.BufPool.Get().([]byte)
-	io.CopyBuffer(rightConn, leftConn, buf)
+	_, _ = io.CopyBuffer(rightConn, leftConn, buf)
 	pool.BufPool.Put(buf[:cap(buf)])
-	rightConn.SetReadDeadline(time.Now())
+	_ = rightConn.SetReadDeadline(time.Now())
 	<-ch
 }

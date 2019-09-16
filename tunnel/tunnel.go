@@ -117,7 +117,7 @@ func (t *Tunnel) handleConn(localConn C.ServerAdapter) {
 			conn = adapter.Conn
 		}
 		if _, ok := conn.(*net.TCPConn); ok {
-			localConn.Close()
+			_ = localConn.Close()
 		}
 	}()
 
@@ -188,6 +188,11 @@ func (t *Tunnel) handleUDPConn(localConn C.ServerAdapter, metadata *C.Metadata, 
 }
 
 func (t *Tunnel) handleTCPConn(localConn C.ServerAdapter, metadata *C.Metadata, proxy C.Proxy, rule C.Rule) {
+	defer func() {
+		if err := recover(); err != nil {
+			fmt.Println("panic recover")
+		}
+	}()
 	remoteConn, err := proxy.Dial(metadata)
 	if err != nil {
 		log.Warnln("dial %s error: %s", proxy.Name(), err.Error())

@@ -23,27 +23,27 @@ const (
 )
 
 // UnmarshalJSON unserialize Mode
-func (m *Mode) UnmarshalJSON(data []byte) error {
+func (m *Mode) UnmarshalJSON(data []byte) (err error) {
 	var tp string
-	json.Unmarshal(data, &tp)
+	err = json.Unmarshal(data, &tp)
 	mode, exist := ModeMapping[tp]
 	if !exist {
 		return errors.New("invalid mode")
 	}
 	*m = mode
-	return nil
+	return
 }
 
 // UnmarshalYAML unserialize Mode with yaml
-func (m *Mode) UnmarshalYAML(unmarshal func(interface{}) error) error {
+func (m *Mode) UnmarshalYAML(unmarshal func(interface{}) error) (err error) {
 	var tp string
-	unmarshal(&tp)
+	err = unmarshal(&tp)
 	mode, exist := ModeMapping[tp]
 	if !exist {
 		return errors.New("invalid mode")
 	}
 	*m = mode
-	return nil
+	return
 }
 
 // MarshalJSON serialize Mode

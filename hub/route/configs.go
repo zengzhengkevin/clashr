@@ -61,9 +61,9 @@ func patchConfigs(w http.ResponseWriter, r *http.Request) {
 	}
 
 	ports := P.GetPorts()
-	P.ReCreateHTTP(pointerOrDefault(general.Port, ports.Port))
-	P.ReCreateSocks(pointerOrDefault(general.SocksPort, ports.SocksPort))
-	P.ReCreateRedir(pointerOrDefault(general.RedirPort, ports.RedirPort))
+	_ = P.ReCreateHTTP(pointerOrDefault(general.Port, ports.Port))
+	_ = P.ReCreateSocks(pointerOrDefault(general.SocksPort, ports.SocksPort))
+	_ = P.ReCreateRedir(pointerOrDefault(general.RedirPort, ports.RedirPort))
 
 	if general.Mode != nil {
 		T.Instance().SetMode(*general.Mode)

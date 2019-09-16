@@ -49,7 +49,7 @@ func NewSocksProxy(addr string) (*SockListener, error) {
 
 func (l *SockListener) Close() {
 	l.closed = true
-	l.Listener.Close()
+	_ = l.Listener.Close()
 }
 
 func (l *SockListener) Address() string {
@@ -59,13 +59,13 @@ func (l *SockListener) Address() string {
 func handleSocks(conn net.Conn) {
 	target, command, err := socks5.ServerHandshake(conn, authStore.Authenticator())
 	if err != nil {
-		conn.Close()
+		_ = conn.Close()
 		return
 	}
-	conn.(*net.TCPConn).SetKeepAlive(true)
+	_ = conn.(*net.TCPConn).SetKeepAlive(true)
 	if command == socks5.CmdUDPAssociate {
 		defer conn.Close()
-		io.Copy(ioutil.Discard, conn)
+		_, _ = io.Copy(ioutil.Discard, conn)
 		return
 	}
 	tun.Add(adapters.NewSocket(target, conn, C.SOCKS, C.TCP))

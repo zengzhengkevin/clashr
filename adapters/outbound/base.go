@@ -132,7 +132,7 @@ func (p *Proxy) MarshalJSON() ([]byte, error) {
 	}
 
 	mapping := map[string]interface{}{}
-	json.Unmarshal(inner, &mapping)
+	_ = json.Unmarshal(inner, &mapping)
 	mapping["history"] = p.DelayHistory()
 	return json.Marshal(mapping)
 }
@@ -185,7 +185,7 @@ func (p *Proxy) URLTest(ctx context.Context, url string) (t uint16, err error) {
 	if err != nil {
 		return
 	}
-	resp.Body.Close()
+	_ = resp.Body.Close()
 	t = uint16(time.Since(start) / time.Millisecond)
 	return
 }
@@ -193,7 +193,6 @@ func (p *Proxy) URLTest(ctx context.Context, url string) (t uint16, err error) {
 func NewProxy(adapter C.ProxyAdapter) *Proxy {
 	return &Proxy{adapter, queue.New(10), true}
 }
-
 
 // ProxyGroupOption contain the common options for all kind of ProxyGroup
 type ProxyGroupOption struct {
