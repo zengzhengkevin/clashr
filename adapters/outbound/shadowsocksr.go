@@ -3,15 +3,13 @@ package adapters
 import (
 	"encoding/json"
 	"errors"
+	C "github.com/zu1k/clashr/constant"
 	"github.com/zu1k/gossr/obfs"
 	"github.com/zu1k/gossr/protocol"
 	"log"
 	"net"
 	"strconv"
 	"strings"
-	"time"
-
-	C "github.com/zu1k/clashr/constant"
 
 	"github.com/zu1k/gossr"
 	"github.com/zu1k/gossr/ssr"
@@ -45,11 +43,12 @@ func (ssrins *ShadowsocksR) Dial(metadata *C.Metadata) (C.Conn, error) {
 		return nil, err
 	}
 
-	dialer := net.Dialer{
-		Timeout:   time.Millisecond * 500,
-		DualStack: true,
-	}
-	conn, err := dialer.Dial("tcp", ssrins.server)
+	//dialer := net.Dialer{
+	//	Timeout:   time.Millisecond * 500,
+	//	DualStack: true,
+	//}
+	//conn, err := dialer.Dial("tcp", ssrins.server)
+	conn, err := dialTimeout("tcp", ssrins.server, tcpTimeout)
 	if err != nil {
 		return nil, err
 	}
@@ -121,5 +120,3 @@ func (ssr *ShadowsocksR) MarshalJSON() ([]byte, error) {
 func (ssr *ShadowsocksR) DialUDP(metadata *C.Metadata) (pac C.PacketConn, netaddr net.Addr, err error) {
 	return nil, nil, nil
 }
-
-
