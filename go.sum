@@ -42,8 +42,8 @@ github.com/stretchr/objx v0.1.1/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+
 github.com/stretchr/testify v1.2.2/go.mod h1:a8OnRcib4nhh0OaRAV+Yts87kKdq0PP7pXfy6kDkUVs=
 github.com/stretchr/testify v1.4.0 h1:2E4SXV/wtOkTonXsotYi4li6zVWxYlZuYNCXe9XRJyk=
 github.com/stretchr/testify v1.4.0/go.mod h1:j7eGeouHqKxXV5pUuKE4zz7dFj8WfuZ+81PSLYec5m4=
-github.com/zu1k/gossr v0.0.0-20190915131227-bd6448a0ec49 h1:TrgWK38gl8LDj0uh8tu44QqC0Plx3HzpABIxdjZLObU=
-github.com/zu1k/gossr v0.0.0-20190915131227-bd6448a0ec49/go.mod h1:O/4hgExwEuqDpZj23xe+lXKz2vFHaqmwT0+XmLlBkRY=
+github.com/zu1k/gossr v0.0.0-20190917142441-e5497022713d h1:ma5GBRyrxJYlhz0CNjdsXBmbZsAIw5Vb22S+mkjGNhQ=
+github.com/zu1k/gossr v0.0.0-20190917142441-e5497022713d/go.mod h1:O/4hgExwEuqDpZj23xe+lXKz2vFHaqmwT0+XmLlBkRY=
 gitlab.com/yawning/chacha20.git v0.0.0-20190903091407-6d1cb28dc72c h1:yrfrd1u7MWIwWIulet2TZPEkeNQhQ/GcPLdPXgiEEr0=
 gitlab.com/yawning/chacha20.git v0.0.0-20190903091407-6d1cb28dc72c/go.mod h1:3x6b94nWCP/a2XB/joOPMiGYUBvqbLfeY/BkHLeDs6s=
 golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=

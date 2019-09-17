@@ -61,7 +61,10 @@ func (ssrins *ShadowsocksR) Dial(metadata *C.Metadata) (C.Conn, error) {
 	rs := strings.Split(dstcon.RemoteAddr().String(), ":")
 	port, _ := strconv.Atoi(rs[1])
 
-	dstcon.IObfs = obfs.NewObfs(ssrop.Obfs)
+	dstcon.IObfs,err = obfs.NewObfs(ssrop.Obfs)
+	if err!=nil {
+		return nil,err
+	}
 	obfsServerInfo := &ssr.ServerInfoForObfs{
 		Host:   rs[0],
 		Port:   uint16(port),
@@ -69,7 +72,10 @@ func (ssrins *ShadowsocksR) Dial(metadata *C.Metadata) (C.Conn, error) {
 		Param:  ssrop.ObfsParam,
 	}
 	dstcon.IObfs.SetServerInfo(obfsServerInfo)
-	dstcon.IProtocol = protocol.NewProtocol(ssrop.Protocol)
+	dstcon.IProtocol,err = protocol.NewProtocol(ssrop.Protocol)
+	if err!=nil {
+		return nil,err
+	}
 	protocolServerInfo := &ssr.ServerInfoForObfs{
 		Host:   rs[0],
 		Port:   uint16(port),
