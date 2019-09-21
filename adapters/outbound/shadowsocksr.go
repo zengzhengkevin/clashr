@@ -6,7 +6,6 @@ import (
 	C "github.com/zu1k/clashr/constant"
 	"github.com/zu1k/gossr/obfs"
 	"github.com/zu1k/gossr/protocol"
-	"log"
 	"net"
 	"strconv"
 	"strings"
@@ -61,9 +60,9 @@ func (ssrins *ShadowsocksR) Dial(metadata *C.Metadata) (C.Conn, error) {
 	rs := strings.Split(dstcon.RemoteAddr().String(), ":")
 	port, _ := strconv.Atoi(rs[1])
 
-	dstcon.IObfs,err = obfs.NewObfs(ssrop.Obfs)
-	if err!=nil {
-		return nil,err
+	dstcon.IObfs, err = obfs.NewObfs(ssrop.Obfs)
+	if err != nil {
+		return nil, err
 	}
 	obfsServerInfo := &ssr.ServerInfoForObfs{
 		Host:   rs[0],
@@ -72,9 +71,9 @@ func (ssrins *ShadowsocksR) Dial(metadata *C.Metadata) (C.Conn, error) {
 		Param:  ssrop.ObfsParam,
 	}
 	dstcon.IObfs.SetServerInfo(obfsServerInfo)
-	dstcon.IProtocol,err = protocol.NewProtocol(ssrop.Protocol)
-	if err!=nil {
-		return nil,err
+	dstcon.IProtocol, err = protocol.NewProtocol(ssrop.Protocol)
+	if err != nil {
+		return nil, err
 	}
 	protocolServerInfo := &ssr.ServerInfoForObfs{
 		Host:   rs[0],
@@ -103,7 +102,6 @@ func (ssrins *ShadowsocksR) Dial(metadata *C.Metadata) (C.Conn, error) {
 }
 
 func NewShadowsocksR(ssrop ShadowsocksROption) (*ShadowsocksR, error) {
-	log.Println(ssrop.ObfsParam)
 	server := net.JoinHostPort(ssrop.Server, strconv.Itoa(ssrop.Port))
 	return &ShadowsocksR{
 		Base: &Base{
