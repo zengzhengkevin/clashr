@@ -52,9 +52,10 @@ func Start(addr string, secret string) {
 		MaxAge:         300,
 	})
 
+	r.Use(cors.Handler)
 	r.Get("/", hello)
 	r.Group(func(r chi.Router) {
-		r.Use(cors.Handler, authentication)
+		r.Use(authentication)
 
 		r.Get("/logs", getLogs)
 		r.Get("/version", version)
@@ -105,8 +106,8 @@ func authentication(next http.Handler) http.Handler {
 
 func hello(w http.ResponseWriter, r *http.Request) {
 	render.JSON(w, r, render.M{
-		"Hello": "clashR",
-		"Group": "https://t.me/clashr4ssr",
+		"Hello":   "clashR",
+		"Group":   "https://t.me/clashr4ssr",
 		"Channel": "https://t.me/peekfun",
 	})
 }
