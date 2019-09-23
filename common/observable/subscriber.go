@@ -1,6 +1,7 @@
 package observable
 
 import (
+	"fmt"
 	"sync"
 
 	"gopkg.in/eapache/channels.v1"
@@ -14,6 +15,11 @@ type Subscriber struct {
 }
 
 func (s *Subscriber) Emit(item interface{}) {
+	defer func() {
+		if err := recover(); err != nil {
+			fmt.Println("send on closed channel panic recover")
+		}
+	}()
 	s.buffer.In() <- item
 }
 

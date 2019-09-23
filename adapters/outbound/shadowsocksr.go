@@ -42,11 +42,6 @@ func (ssrins *ShadowsocksR) Dial(metadata *C.Metadata) (C.Conn, error) {
 		return nil, err
 	}
 
-	//dialer := net.Dialer{
-	//	Timeout:   time.Millisecond * 500,
-	//	DualStack: true,
-	//}
-	//conn, err := dialer.Dial("tcp", ssrins.server)
 	conn, err := dialTimeout("tcp", ssrins.server, tcpTimeout)
 	if err != nil {
 		return nil, err
