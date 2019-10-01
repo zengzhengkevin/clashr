@@ -55,6 +55,9 @@ func (ssrins *ShadowsocksR) Dial(metadata *C.Metadata) (C.Conn, error) {
 	rs := strings.Split(dstcon.RemoteAddr().String(), ":")
 	port, _ := strconv.Atoi(rs[1])
 
+	if strings.HasSuffix(ssrop.Obfs, "_compatible") {
+		ssrop.Obfs = strings.ReplaceAll(ssrop.Obfs, "_compatible", "")
+	}
 	dstcon.IObfs, err = obfs.NewObfs(ssrop.Obfs)
 	if err != nil {
 		return nil, err
@@ -66,6 +69,10 @@ func (ssrins *ShadowsocksR) Dial(metadata *C.Metadata) (C.Conn, error) {
 		Param:  ssrop.ObfsParam,
 	}
 	dstcon.IObfs.SetServerInfo(obfsServerInfo)
+
+	if strings.HasSuffix(ssrop.Protocol, "_compatible") {
+		ssrop.Protocol = strings.ReplaceAll(ssrop.Protocol, "_compatible", "")
+	}
 	dstcon.IProtocol, err = protocol.NewProtocol(ssrop.Protocol)
 	if err != nil {
 		return nil, err
