@@ -14,12 +14,13 @@ const (
 	Reject
 	Selector
 	Shadowsocks
+	ShadowsocksR
+	Snell
 	Socks5
 	Http
 	URLTest
 	Vmess
 	LoadBalance
-	ShadowsocksR
 )
 
 type ServerAdapter interface {
@@ -93,6 +94,10 @@ func (at AdapterType) String() string {
 		return "Selector"
 	case Shadowsocks:
 		return "Shadowsocks"
+	case ShadowsocksR:
+		return "ShadowsocksR"
+	case Snell:
+		return "Snell"
 	case Socks5:
 		return "Socks5"
 	case Http:
@@ -103,8 +108,6 @@ func (at AdapterType) String() string {
 		return "Vmess"
 	case LoadBalance:
 		return "LoadBalance"
-	case ShadowsocksR:
-		return "ShadowsocksR"
 	default:
 		return "Unknown"
 	}

@@ -300,6 +300,13 @@ func parseProxies(cfg *rawConfig) (map[string]C.Proxy, error) {
 				break
 			}
 			proxy = adapters.NewHttp(*httpOption)
+		case "snell":
+			snellOption := &adapters.SnellOption{}
+			err = decoder.Decode(mapping, snellOption)
+			if err != nil {
+				break
+			}
+			proxy, err = adapters.NewSnell(*snellOption)
 		case "vmess":
 			vmessOption := &adapters.VmessOption{}
 			err = decoder.Decode(mapping, vmessOption)
