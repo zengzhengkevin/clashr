@@ -2,7 +2,6 @@ package tunnel
 
 import (
 	"bufio"
-	"fmt"
 	"io"
 	"net"
 	"net/http"
@@ -14,11 +13,6 @@ import (
 )
 
 func (t *Tunnel) handleHTTP(request *adapters.HTTPAdapter, outbound net.Conn) {
-	defer func() {
-		if err := recover(); err != nil {
-			fmt.Println("panic recover")
-		}
-	}()
 	conn := newTrafficTrack(outbound, t.traffic)
 	req := request.R
 	host := req.Host
@@ -32,7 +26,6 @@ func (t *Tunnel) handleHTTP(request *adapters.HTTPAdapter, outbound net.Conn) {
 		req.Header.Set("Connection", "close")
 		req.RequestURI = ""
 		adapters.RemoveHopByHopHeaders(req.Header)
-
 		err := req.Write(conn)
 		if err != nil {
 			break
@@ -93,11 +86,14 @@ func (t *Tunnel) handleUDPToRemote(conn net.Conn, pc net.PacketConn, addr net.Ad
 	t.traffic.Up() <- int64(n)
 }
 
-func (t *Tunnel) handleUDPToLocal(conn net.Conn, pc net.PacketConn) {
+func (t *Tunnel) handleUDPToLocal(conn net.Conn, pc net.PacketConn, key string, timeout time.Duration) {
 	buf := pool.BufPool.Get().([]byte)
 	defer pool.BufPool.Put(buf[:cap(buf)])
+	defer t.natTable.Delete(key)
+	defer pc.Close()
 
 	for {
+		pc.SetReadDeadline(time.Now().Add(timeout))
 		n, _, err := pc.ReadFrom(buf)
 		if err != nil {
 			return
@@ -123,14 +119,14 @@ func relay(leftConn, rightConn net.Conn) {
 	go func() {
 		buf := pool.BufPool.Get().([]byte)
 		_, err := io.CopyBuffer(leftConn, rightConn, buf)
-		pool.BufPool.Put(buf)
-		_ = leftConn.SetReadDeadline(time.Now())
+		pool.BufPool.Put(buf[:cap(buf)])
+		leftConn.SetReadDeadline(time.Now())
 		ch <- err
 	}()
 
 	buf := pool.BufPool.Get().([]byte)
-	_, _ = io.CopyBuffer(rightConn, leftConn, buf)
+	io.CopyBuffer(rightConn, leftConn, buf)
 	pool.BufPool.Put(buf[:cap(buf)])
-	_ = rightConn.SetReadDeadline(time.Now())
+	rightConn.SetReadDeadline(time.Now())
 	<-ch
 }

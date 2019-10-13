@@ -7,7 +7,6 @@ import (
 	"net"
 	"strconv"
 
-	"github.com/zu1k/clashr/common/pool"
 	"github.com/zu1k/clashr/common/structure"
 	obfs "github.com/zu1k/clashr/component/simple-obfs"
 	"github.com/zu1k/clashr/component/socks5"
@@ -95,9 +94,9 @@ func (ss *ShadowSocks) DialUDP(metadata *C.Metadata) (C.PacketConn, net.Addr, er
 		return nil, nil, err
 	}
 
-	targetAddr, err := net.ResolveUDPAddr("udp", net.JoinHostPort(metadata.String(), metadata.DstPort))
-	if err != nil {
-		return nil, nil, err
+	targetAddr := socks5.ParseAddr(metadata.RemoteAddress())
+	if targetAddr == nil {
+		return nil, nil, fmt.Errorf("parse address error: %v:%v", metadata.String(), metadata.DstPort)
 	}
 
 	pc = ss.cipher.PacketConn(pc)
@@ -191,16 +190,15 @@ func NewShadowSocks(option ShadowSocksOption) (*ShadowSocks, error) {
 
 type ssUDPConn struct {
 	net.PacketConn
-	rAddr net.Addr
+	rAddr socks5.Addr
 }
 
-func (uc *ssUDPConn) WriteTo(b []byte, addr net.Addr) (int, error) {
-	buf := pool.BufPool.Get().([]byte)
-	defer pool.BufPool.Put(buf[:cap(buf)])
-	rAddr := socks5.ParseAddr(uc.rAddr.String())
-	copy(buf[len(rAddr):], b)
-	copy(buf, rAddr)
-	return uc.PacketConn.WriteTo(buf[:len(rAddr)+len(b)], addr)
+func (uc *ssUDPConn) WriteTo(b []byte, addr net.Addr) (n int, err error) {
+	packet, err := socks5.EncodeUDPPacket(uc.rAddr, b)
+	if err != nil {
+		return
+	}
+	return uc.PacketConn.WriteTo(packet[3:], addr)
 }
 
 func (uc *ssUDPConn) ReadFrom(b []byte) (int, net.Addr, error) {
