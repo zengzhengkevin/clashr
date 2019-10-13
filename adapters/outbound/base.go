@@ -91,7 +91,13 @@ func (p *Proxy) Alive() bool {
 }
 
 func (p *Proxy) Dial(metadata *C.Metadata) (C.Conn, error) {
-	conn, err := p.ProxyAdapter.Dial(metadata)
+	ctx, cancel := context.WithTimeout(context.Background(), tcpTimeout)
+	defer cancel()
+	return p.DialContext(ctx, metadata)
+}
+
+func (p *Proxy) DialContext(ctx context.Context, metadata *C.Metadata) (C.Conn, error) {
+	conn, err := p.ProxyAdapter.DialContext(ctx, metadata)
 	if err != nil {
 		p.alive = false
 	}
@@ -132,7 +138,7 @@ func (p *Proxy) MarshalJSON() ([]byte, error) {
 	}
 
 	mapping := map[string]interface{}{}
-	_ = json.Unmarshal(inner, &mapping)
+	json.Unmarshal(inner, &mapping)
 	mapping["history"] = p.DelayHistory()
 	return json.Marshal(mapping)
 }
@@ -157,7 +163,7 @@ func (p *Proxy) URLTest(ctx context.Context, url string) (t uint16, err error) {
 	}
 
 	start := time.Now()
-	instance, err := p.Dial(&addr)
+	instance, err := p.DialContext(ctx, &addr)
 	if err != nil {
 		return
 	}
@@ -185,7 +191,7 @@ func (p *Proxy) URLTest(ctx context.Context, url string) (t uint16, err error) {
 	if err != nil {
 		return
 	}
-	_ = resp.Body.Close()
+	resp.Body.Close()
 	t = uint16(time.Since(start) / time.Millisecond)
 	return
 }

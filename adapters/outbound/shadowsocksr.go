@@ -1,6 +1,7 @@
 package adapters
 
 import (
+	"context"
 	"encoding/json"
 	"errors"
 	C "github.com/zu1k/clashr/constant"
@@ -35,14 +36,14 @@ type ShadowsocksROption struct {
 	ObfsParam     string `proxy:"obfsparam"`
 }
 
-func (ssrins *ShadowsocksR) Dial(metadata *C.Metadata) (C.Conn, error) {
+func (ssrins *ShadowsocksR) DialContext(ctx context.Context, metadata *C.Metadata) (C.Conn, error) {
 	ssrop := ssrins.ssrop
 	cipher, err := shadowsocksr.NewStreamCipher(ssrop.Cipher, ssrop.Password)
 	if err != nil {
 		return nil, err
 	}
 
-	conn, err := dialTimeout("tcp", ssrins.server, tcpTimeout)
+	conn, err := dialContext(ctx, "tcp", ssrins.server)
 	if err != nil {
 		return nil, err
 	}
