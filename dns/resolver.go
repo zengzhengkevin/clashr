@@ -171,10 +171,7 @@ func (r *Resolver) IsFakeIP() bool {
 }
 
 func (r *Resolver) batchExchange(clients []resolver, m *D.Msg) (msg *D.Msg, err error) {
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
-	defer cancel()
-	fast, ctx := picker.WithContext(ctx)
-
+	fast, ctx := picker.WithTimeout(context.Background(), time.Second)
 	for _, client := range clients {
 		r := client
 		fast.Go(func() (interface{}, error) {
@@ -302,6 +299,7 @@ func New(config Config) *Resolver {
 	if len(config.Fallback) != 0 {
 		r.fallback = transform(config.Fallback)
 	}
+
 	fallbackFilters := []fallbackFilter{}
 	if config.FallbackFilter.GeoIP {
 		once.Do(func() {
